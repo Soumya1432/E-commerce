@@ -1,0 +1,8 @@
+.bg-image
+{
+    /* background-image: url('https://images.unsplash.com/photo-1586880244406-556ebe35f282?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D'); */
+    border: 10px;
+    border-radius: 46% 54% 80% 0% / 0% 100% 0% 100% ;
+    box-shadow: 10px 20px 30px gray;
+
+}

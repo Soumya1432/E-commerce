@@ -25,18 +25,27 @@ function onSubmit(event){
             })
             navigate('/auth/login')
         }
+        else
+        {
+            toast({
+                title:data?.payload?.message,
+                variant:'success'
+            })
+           
+        }
     })
      
 }
-console.log(formData)
+
     return(
-     <div className="mx-auto w-full max-w-md space-y-6">
+     <div className="mx-auto w-full max-w-md space-y-6 border border-slate-300 px-8 py-20 shadow-lg rounded-lg">
          <div className="text-center">
             <h1 className="text-3xl font-bold tracking-tight text-foreground">Create a new Account</h1>
             <p className="mt-2"> Already have an account?
             <Link className="font-medium text-primary underline" to={'/auth/login'}>Login</Link>
             </p>
          </div>
+         
          <CommonForm 
           formControls={registerFormControls}
           buttonText={'Create Account'}
@@ -44,6 +53,7 @@ console.log(formData)
           setFormData={setFormData}
           onSubmit={onSubmit}
          />
+         
      </div>
     )
 }
