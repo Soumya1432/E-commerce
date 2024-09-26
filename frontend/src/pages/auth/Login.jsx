@@ -24,11 +24,12 @@ const AuthLogin =()=>{
           if (data?.payload?.success) {
             toast({
               title: data?.payload?.message,
+              variant: "destructive",
             });
           } else {
             toast({
               title: data?.payload?.message,
-              variant: "destructive",
+        
             });
           }
         });

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import AuthLayout from './components/auth/Layout'
 import AuthLogin from './pages/auth/Login'
@@ -16,15 +16,26 @@ import ShoppingCheckout from './pages/shopping-view/checkout'
 import ShoppingAccount from './pages/shopping-view/account'
 import CheckAuth from './components/common/checkAuth'
 import Unauth from './pages/unauth-page'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { checkAuth } from './store/authSlice'
 
 const App = () => {
 
-  const {user,isAuthenticated } = useSelector(state=>state.auth)
+  const {user,isAuthenticated,isLoading } = useSelector(state=>state.auth)
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(checkAuth());  // Invoke the action creator
+  }, [dispatch]);
+  
+if(isLoading)
+{
+  return <div> Loading ......</div>
+}
   return (
     <div className='flex flex-col overflow-hidden bg-white'>
       {/* Common components */}
       <Routes>
+        <Route path='/'>
         <Route path='/auth' element={
           <CheckAuth isAuthenticated={isAuthenticated} user={user}>
             <AuthLayout/>
@@ -35,8 +46,8 @@ const App = () => {
         </Route>
 
         <Route path='/admin' element={
-          <CheckAuth>
-            <AdminLayout isAuthenticated={isAuthenticated} user={user} />
+          <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+            <AdminLayout />
           </CheckAuth>
         }>
           <Route path='dashboard' element={<AdminDashboard />} />
@@ -46,8 +57,8 @@ const App = () => {
         </Route>
 
         <Route path='/shop' element={
-          <CheckAuth >
-            <ShoppingLayout isAuthenticated={isAuthenticated} user={user}  />
+          <CheckAuth isAuthenticated={isAuthenticated} user={user} >
+            <ShoppingLayout />
           </CheckAuth>
         }>
           <Route path='home' element={<ShoppingHome />} />
@@ -57,6 +68,7 @@ const App = () => {
         </Route>
         <Route path='*' element={<NotFound />} />
         <Route path='/unauth-page'element={<Unauth/>} />
+        </Route>
       </Routes>
     </div>
   )
