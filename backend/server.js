@@ -3,6 +3,7 @@ const mongoose= require('mongoose');
 const cookieParser = require("cookie-parser");
 const cors= require('cors');
 const authRouter = require('./routes/auth/auth.route')
+const adminProductsRouter = require('./routes/admin/products.route');
 const dotenv= require('dotenv')
 dotenv.config();
 const app =express();
@@ -34,6 +35,7 @@ app.use(
 app.use(cookieParser())
 app.use(express.json());
 app.use("/api/auth",authRouter)
+app.use("/api/admin/products",adminProductsRouter);
 app.listen(PORT,()=>{
     console.log(`Server started on ${PORT}`);
 })

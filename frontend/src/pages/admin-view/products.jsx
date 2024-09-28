@@ -48,6 +48,7 @@
 //   export default AdminProducts;
 
 
+import ProductImageUpload from "@/components/admin-view/imageUpload";
 import CommonForm from "@/components/common/form";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -69,6 +70,9 @@ const initialFormData = {
 const AdminProducts = () => {
   const [openCreateProductsDialog, setOpenCreateProductsDialog] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
+  const [imageFile,setImageFile] = useState(null);
+  const [uploadedImageUrl,setUploadedImageUrl]= useState("");
+  const [ imageLoadingState, setImageLoadingState] = useState(false);
 
   function onSubmit(event) {
     event.preventDefault();
@@ -91,7 +95,13 @@ const AdminProducts = () => {
           <SheetHeader>
             <SheetTitle>Add New Products</SheetTitle>
           </SheetHeader>
-
+        <ProductImageUpload
+         imageFIle={imageFile}  
+         setImageFile={setImageFile} 
+         uploadedImageUrl={uploadedImageUrl}
+          setUploadedImageUrl={setUploadedImageUrl}
+          setImageLoadingState={setImageLoadingState}
+           />
           <div className="py-6">
             {/* Ensure that CommonForm is working as expected */}
             <CommonForm
