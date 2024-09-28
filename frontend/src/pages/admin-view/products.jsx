@@ -57,6 +57,7 @@ import { useToast } from "@/hooks/use-toast";
 import { addNewProduct, fetchAllProducts } from "@/store/admin/products-slice";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import AdminProductTile from "./productTile";
 
 const initialFormData = {
   image: null,
@@ -76,7 +77,7 @@ const AdminProducts = () => {
   const [imageFile,setImageFile] = useState(null);
   const [uploadedImageUrl,setUploadedImageUrl]= useState("");
   const [ imageLoadingState, setImageLoadingState] = useState(false);
-  const { productList } = useSelector(state=>state. adminProducts)
+  const { productList } = useSelector(state=>state.adminProducts)
   const dispatch = useDispatch();
   const { toast } = useToast();
   function onSubmit(event) {
@@ -110,7 +111,14 @@ const AdminProducts = () => {
         <Button onClick={() => setOpenCreateProductsDialog(true)}>Add New Product</Button>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4"></div>
+      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
+         {
+           productList && productList.length > 0 ?
+           productList.map( (productItem) =>(
+                  <AdminProductTile product={productItem} />
+           )): null
+         }
+      </div>
 
       <Sheet
         open={openCreateProductsDialog}
