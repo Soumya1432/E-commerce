@@ -4,8 +4,9 @@ import { Input } from '../ui/input'
 import { FileIcon, UploadCloudIcon, XIcon } from 'lucide-react';
 import { Button } from '../ui/button';
 import axios from 'axios';
+import { Skeleton } from '../ui/skeleton';
 
-const ProductImageUpload = ({imageFIle,setImageFile,uploadedImageUrl,setUploadedImageUrl,setImageLoadingState }) => {
+const ProductImageUpload = ({imageFIle,setImageFile,imageLoadingState,uploadedImageUrl,setUploadedImageUrl,setImageLoadingState }) => {
   const inputRef = useRef(null);
   function handleImageFileChange(event){
     console.log(event.target.files[0]);
@@ -62,11 +63,13 @@ async function uploadedImageToCloudinary()
         <div onDragOver={handleDragOver} onDrop={handleDrop} className='border-2 border-slate-400 border-dashed rounded-lg p-4  mt-4'>
              <Input id="image-upload" type="file" className="" ref={inputRef} onChange={handleImageFileChange}/>
              {
-               !imageFIle ?
+               !imageFIle ? (
                <Label  htmlFor="image-upload" className="flex flex-col items-center justify-center h-32 cursor-pointer" >
                 <UploadCloudIcon className='w-10 h-10 text-muted-foreground mb-2 '/>
                 <span>Drag & Drop or click to upload image </span>
-               </Label> : 
+               </Label> ) : (
+                imageLoadingState ?
+                <Skeleton className="h-10 bg-gray-600" /> :
                <div className='flex items-center justify-between'>
                   <div className='flex items-center'>
                         <FileIcon className='w-8 text-primary mr-2 h-8' />
@@ -77,6 +80,7 @@ async function uploadedImageToCloudinary()
                        <span name="sr-only">Remove File</span>
                     </Button>
                </div>
+               )
              }
         </div>
     </div>
