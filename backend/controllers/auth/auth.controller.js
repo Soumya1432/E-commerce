@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../../models/user.model')
-
 // register
 const registerUser = async (req, res) => {
   const { userName, email, password } = req.body
@@ -101,7 +100,6 @@ const authMiddleware =async(req,res,next)=>{
             message:"Unauthorized user"
         })
     }
-
     try {
         const decoded = jwt.verify(token,'soumya');
         req.user =decoded;
@@ -114,6 +112,4 @@ const authMiddleware =async(req,res,next)=>{
         })
     }
 }
-
-
 module.exports = { registerUser, loginUser,logout,authMiddleware }

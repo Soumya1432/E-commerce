@@ -30,7 +30,7 @@ const App = () => {
   
 if(isLoading)
 {
-  return <div><Skeleton className="w-full bg-red-900 h-[770px] " />
+  return <div><Skeleton className="w-full bg-gray-600 h-[770px] " />
 </div>
 }
   return (

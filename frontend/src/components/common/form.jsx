@@ -1,7 +1,7 @@
 
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { Select, SelectTrigger, SelectItem } from '../ui/select';
+import { Select, SelectTrigger, SelectItem, SelectContent, SelectValue } from '../ui/select';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 
@@ -49,15 +49,15 @@ function CommonForm({
 						value={value}
 					>
 						<SelectTrigger className="w-full">
-							<SelectValue placeholder={getControlItem.placeholder} />
+							<SelectValue placeholder={getControlItem.label} />  
 						</SelectTrigger>
 						<SelectContent>
 							{getControlItem.options && getControlItem.options.length > 0
-								? getControlItem.options.map(optionItem =>
+								? getControlItem.options.map((optionItem) =>(
 										<SelectItem key={optionItem.id} value={optionItem.id}>
 											{optionItem.label}
-										</SelectItem>,
-									)
+										</SelectItem>
+									))
 								: null}
 						</SelectContent>
 					</Select>
@@ -102,14 +102,14 @@ function CommonForm({
 	return (
 		<form onSubmit={onSubmit}>
 			<div className="flex flex-col gap-3">
-				{formControls.map(controlItem =>
+				{formControls.map((controlItem) =>(
 					<div className="grid w-full gap-1.5 " key={controlItem.name}>
 						<Label className="mb-1">
 							{controlItem.label}
 						</Label>
 						{renderInputsByComponentType(controlItem)}
-					</div>,
-				)}
+					</div>
+				))}
 			</div>
 
 			<Button type="submit" className="mt-4 w-full">
